@@ -91,7 +91,7 @@ Edge Computing is regarded as ideal for operations with extreme latency concerns
 
 1. In this period of covid-19 crisis, this application can be useful to limit the number of people in a public space such as at the reception in a company or in waiting rooms.
 2. Another case may be control in a herd: knowing at all times the number of animals, studying their behavior, the number of times each puts in front of the feeder for example can help to know which food they like to eat the most.
-
+3. Know the time taken by a customer to decide to buy a particular product. An example: a client who takes more time to decide is either in the car of choice or is not confident.
 
 ### Effects on End user needs
 
