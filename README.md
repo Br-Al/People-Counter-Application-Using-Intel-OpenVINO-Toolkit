@@ -89,11 +89,13 @@ Edge Computing is regarded as ideal for operations with extreme latency concerns
 
 ### Model Use Cases
 
-This application could keep a check on the number of people in a particular area and could be helpful where there is restriction on the number of people present in a particular area. Further, with some updations, this could also prove helpful in the current COVID-19 scenario i.e. to keep a check on the number of people in the frame.
+1. In this period of covid-19 crisis, this application can be useful to limit the number of people in a public space such as at the reception in a company or in waiting rooms.
+2. Another case may be control in a herd: knowing at all times the number of animals, studying their behavior, the number of times each puts in front of the feeder for example can help to know which food they like to eat the most.
+
 
 ### Effects on End user needs
 
-Various insights could be drawn on the model by testing it with different videos and analyzing the model performance on low light input videos. This would be an important factor in determining the best model for the given scenario.
+Several ideas can be drawn on the model by testing it with different videos and according to needs and by analyzing the performance of the model on low light videos.
 
 ### Running the Main Application
 
