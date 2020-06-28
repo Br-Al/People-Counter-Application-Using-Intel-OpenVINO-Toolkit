@@ -31,7 +31,7 @@ python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model 
 
 My method(s) to compare models before and after conversion to Intermediate Representations
 were : 
-1. Converted the model to intermediate representation using the appropriate command.
+### Converted the model to intermediate representation using the appropriate command.
     - Ssd_inception_v2_coco_2018_01_28
     ```
       python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
@@ -41,13 +41,15 @@ were :
     ```
     python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
     ```
-The difference between model accuracy & size and time are sommarize below 
+### Comparison
+  The difference between model accuracy & size and time are sommarize below 
+
     | Model/Framework                             | Latency (microseconds)            | Memory (Mb) |
     | -----------------------------------         |:---------------------------------:| -------:|
-    | ssd_inception_v2_coco (pre)            | 222                               | 538    |
-    | ssd_inception_v2_coco (post)            | 155                               | 329    |
-    | faster_rcnn_inception_v2_coco (pre)    | 1281                              | 562    |
-    | faster_rcnn_inception_v2_coco (post)    | 889                               | 281    |
+    | ssd_inception_v2_coco (pre)                 | 222                               | 538    |
+    | ssd_inception_v2_coco (post)                | 155                               | 329    |
+    | faster_rcnn_inception_v2_coco (pre)         | 1281                              | 562    |
+    | faster_rcnn_inception_v2_coco (post)        | 889                               | 281    |
 
 ## Assess Model Use Cases
 
