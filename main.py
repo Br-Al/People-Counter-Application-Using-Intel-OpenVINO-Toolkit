@@ -74,7 +74,30 @@ def connect_mqtt():
     client. connect(MQTT_HOST, MQTT_PORT, MQTT_KEEPALIVE_INTERVAL)
 
     return client
+### Pre-process the image
 
+def preprocess_image(frame, input_shape):
+    """
+        Pre-process image as needed
+        :param frame: from cv2.VideoCapture().read()
+        :param input_shape
+        :return preprocessed image
+    """
+    image = cv2.resize(frame, (input_shape[3], input_shape[2]))
+    image_p = image.transpose((2,0,1))
+    image_p = image_p.reshape(1, *image_p.shape)
+    return image_p
+
+def draw(probs, frame, net_output, pointer, prob_threshold, w, h):
+    for i, p in enumerate(probs):
+        if p > prob_threshold:
+            pointer += 1
+            box = net_output[0, 0, i, 3:]
+            p1 = (int(box[0] * w), int(box[1] * h))
+            p2 = (int(box[2] * w), int(box[3] * h))
+            frame = cv2.rectangle(frame, p1, p2, (0, 255, 0), 3)
+            
+    return frame, pointer
 
 def infer_on_stream(args, client):
     """
@@ -110,7 +133,6 @@ def infer_on_stream(args, client):
     # Logs error if file does not satisfy the above conditions
     else :
         log.error("File is not correct")
-        print('ici')
         return
     capture = cv2.VideoCapture(args.input)
     capture.open(args.input)
@@ -145,16 +167,12 @@ def infer_on_stream(args, client):
         ### TODO: Pre-process the image as needed ###
         if not flag:
             break
+            
+        image_p = preprocess_image(frame, input_shape)
         
-        #print(infer_network_input_shape)
-        image = cv2.resize(frame, (input_shape[3], input_shape[2]))
-        
-        p_frame = image.transpose((2,0,1))
-        
-        p_frame = p_frame.reshape(1, *p_frame.shape)
         
         ### TODO: Start asynchronous inference for specified request ###
-        net_input = {'image_tensor': p_frame,'image_info': p_frame.shape[1:]}
+        net_input = {'image_tensor': image_p,'image_info': image_p.shape[1:]}
         duration_report = None
         infer_network.exec_net(net_input, request_id)
        
@@ -169,16 +187,8 @@ def infer_on_stream(args, client):
             pointer = 0
             probs = net_output[0, 0, :, 2]
             
-            for i, p in enumerate(probs):
-                
-                if p > prob_threshold:
-                    print('lalaa')
-                    pointer += 1
-                    box = net_output[0, 0, i, 3:]
-                    p1 = (int(box[0] * w), int(box[1] * h))
-                    p2 = (int(box[2] * w), int(box[3] * h))
-                    frame = cv2.rectangle(frame, p1, p2, (0, 255, 0), 3)
-        
+            frame, pointer  = draw(probs,frame, net_output, pointer, prob_threshold, w, h) 
+            
             if pointer != counter:
                 counter_prev = counter
                 counter = pointer
@@ -187,7 +197,7 @@ def infer_on_stream(args, client):
                     dur = 0
                 else:
                     dur = duration_prev + dur
-                    duration_prev = 0  # unknown, not needed in this case
+                    duration_prev = 0  
             else:
                 dur += 1
                 if dur >= 3:
@@ -195,7 +205,6 @@ def infer_on_stream(args, client):
                     if dur == 3 and counter > counter_prev:
                         counter_total += counter - counter_prev
                     elif dur == 3 and counter < counter_prev:
-                        #changed from (duration_prev / 10.0)*1000 to normal
                         duration_report = int(duration_prev)
                     
             ### TODO: Calculate and send relevant information on ###
