@@ -188,8 +188,15 @@ def infer_on_stream(args, client):
             probs = net_output[0, 0, :, 2]
             
             frame, pointer  = draw(probs,frame, net_output, pointer, prob_threshold, w, h) 
-            
-            if pointer != counter:
+            if pointer == counter:
+                dur += 1
+                if dur >= 3:
+                    report = counter
+                    if dur == 3 and counter > counter_prev:
+                        counter_total += counter - counter_prev
+                    elif dur == 3 and counter < counter_prev:
+                        duration_report = int(duration_prev)
+            else:
                 counter_prev = counter
                 counter = pointer
                 if dur >= 3:
@@ -198,14 +205,6 @@ def infer_on_stream(args, client):
                 else:
                     dur = duration_prev + dur
                     duration_prev = 0  
-            else:
-                dur += 1
-                if dur >= 3:
-                    report = counter
-                    if dur == 3 and counter > counter_prev:
-                        counter_total += counter - counter_prev
-                    elif dur == 3 and counter < counter_prev:
-                        duration_report = int(duration_prev)
                     
             ### TODO: Calculate and send relevant information on ###
             ### current_count, total_count and duration to the MQTT server ###
