@@ -44,12 +44,17 @@ were :
 ### Comparison
   The difference between model accuracy & size and time are sommarize below 
 
-    | Model/Framework                             | Latency (microseconds)            | Memory (Mb) |
-    | -----------------------------------         |:---------------------------------:| -------:|
-    | ssd_inception_v2_coco (pre)                 | 222                               | 538    |
-    | ssd_inception_v2_coco (post)                | 155                               | 329    |
-    | faster_rcnn_inception_v2_coco (pre)         | 1281                              | 562    |
-    | faster_rcnn_inception_v2_coco (post)        | 889                               | 281    |
+    #### Model Size (Mb)
+      ssd_inception_v2_coco (TF) : 538 Mb 
+      ssd_inception_v2_coco (OpenVINO) : 329 Mb  
+      faster_rcnn_inception_v2_coco (TF) : 562 Mb 
+      faster_rcnn_inception_v2_coco (OpenVINO) : 281 Mb 
+
+    #### Accuracy (microseconds)
+      ssd_inception_v2_coco (TF) : 222
+      ssd_inception_v2_coco (OpenVINO) : 155   
+      faster_rcnn_inception_v2_coco (TF) : 1281    
+      faster_rcnn_inception_v2_coco (OpenVINO) : 889
 
 ## Assess Model Use Cases
 
