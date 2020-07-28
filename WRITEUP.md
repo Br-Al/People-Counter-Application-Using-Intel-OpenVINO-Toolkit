@@ -28,20 +28,6 @@ The model can't be the existing models provided by Intel. So, converting the Ten
 python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
 ```
 ## Comparing Model Performance
-
-My method(s) to compare models before and after conversion to Intermediate Representations
-were : 
-### Converted the model to intermediate representation using the appropriate command.
-    - Ssd_inception_v2_coco_2018_01_28
-    ```
-      python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model ssd_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
-    ```
-
-    - Faster_rcnn_inception_v2_coco_2018_01_28
-    ```
-    python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/faster_rcnn_support.json
-    ```
-### Comparison
   The difference between model accuracy & size and time are sommarize below 
 
     #### Model Size (Mb)
