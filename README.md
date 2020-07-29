@@ -4,7 +4,7 @@
 |-----------------------|---------------|
 | Programming Language: |  Python 3.5 or 3.6 |
 
-![people-counter-python](./images/people-counter-image.png)
+![screenshot_1](./images/people-counter-screenshot-001.jpg)
 
 ## What it Does
 
